@@ -41,13 +41,25 @@ function IconoReel() {
 }
 
 export default function Grid({ config }) {
-  const { db, handle, bio, avatar, estado, cliente } = config
+  const { db, estado, cliente } = config
+  // Endpoints: en la version autoinstalable apuntan a /api/notion (con el
+  // db por parametro); en la hospedada apuntan a /api/embed/{id} (el
+  // servidor ya sabe cual base de datos leer, no viaja nada en la URL).
+  const epFeed = config.epFeed || '/api/notion'
+  const epUpload = config.epUpload || '/api/notion/upload'
+  const epOrder = config.epOrder || '/api/notion/order'
+  const incluirParametros = config.incluirParametros !== false
 
   const [posts, setPosts] = useState([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState(null)
   const [tab, setTab] = useState('grid')
   const [tema, setTema] = useState(config.tema === 'claro' ? 'claro' : 'oscuro')
+  // En modo hospedado, el usuario/bio/foto no viajan en la URL: llegan en
+  // la respuesta del servidor, que los lee de lo guardado al instalar.
+  const [handle, setHandle] = useState(config.handle || '')
+  const [bio, setBio] = useState(config.bio || '')
+  const [avatar, setAvatar] = useState(config.avatar || '')
   const [avatarRoto, setAvatarRoto] = useState(false)
   const [info, setInfo] = useState({ total: 0, conImagen: 0 })
   const [perfilNotion, setPerfilNotion] = useState(null)
@@ -67,25 +79,34 @@ export default function Grid({ config }) {
     setCargando(true)
     setError(null)
     try {
-      const params = new URLSearchParams({ db })
-      if (estado) params.set('estado', estado)
-      if (cliente) params.set('cliente', cliente)
-      const res = await fetch(`/api/notion?${params}`, { cache: 'no-store' })
+      let url = epFeed
+      if (incluirParametros) {
+        const params = new URLSearchParams({ db })
+        if (estado) params.set('estado', estado)
+        if (cliente) params.set('cliente', cliente)
+        url = `${epFeed}?${params}`
+      }
+      const res = await fetch(url, { cache: 'no-store' })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || 'No se pudo cargar.')
       setPosts(json.posts)
       setInfo({ total: json.total ?? json.posts.length, conImagen: json.conImagen ?? 0 })
       setPerfilNotion(json.perfil || null)
+      // Solo el modo hospedado manda estos campos; en el autoinstalable
+      // ya vienen fijos desde el enlace y no hay que sobrescribirlos.
+      if (typeof json.handle === 'string') setHandle(json.handle)
+      if (typeof json.bio === 'string') setBio(json.bio)
+      if (typeof json.avatar === 'string') setAvatar(json.avatar)
     } catch (e) {
       setError(e.message)
     } finally {
       setCargando(false)
     }
-  }, [db, estado, cliente])
+  }, [db, estado, cliente, epFeed, incluirParametros])
 
   useEffect(() => {
-    if (db) cargar()
-  }, [db, cargar])
+    if (db || !incluirParametros) cargar()
+  }, [db, incluirParametros, cargar])
 
   // Si el enlace no dice nada, seguimos el modo del sistema y recordamos
   // el ultimo cambio manual del usuario.
@@ -93,7 +114,7 @@ export default function Grid({ config }) {
     if (config.tema) return
     let guardado = null
     try {
-      guardado = window.localStorage.getItem('viim-grid-tema')
+      guardado = window.localStorage.getItem('contentkit-tema')
     } catch {}
     if (guardado === 'claro' || guardado === 'oscuro') {
       setTema(guardado)
@@ -108,7 +129,7 @@ export default function Grid({ config }) {
     document.documentElement.style.colorScheme = tema === 'oscuro' ? 'dark' : 'light'
     if (config.tema) return
     try {
-      window.localStorage.setItem('viim-grid-tema', tema)
+      window.localStorage.setItem('contentkit-tema', tema)
     } catch {}
   }, [tema, config.tema])
 
@@ -129,7 +150,7 @@ export default function Grid({ config }) {
   async function guardarOrden(lista) {
     setGuardado('guardando')
     try {
-      const res = await fetch('/api/notion/order', {
+      const res = await fetch(epOrder, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: lista.map((p, i) => ({ id: p.id, orden: i + 1 })) }),
@@ -155,7 +176,7 @@ export default function Grid({ config }) {
       const cuerpo = new FormData()
       cuerpo.append('archivo', archivo)
       cuerpo.append('pageId', post.id)
-      const res = await fetch('/api/notion/upload', { method: 'POST', body: cuerpo })
+      const res = await fetch(epUpload, { method: 'POST', body: cuerpo })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || 'No se pudo subir.')
       await cargar()
@@ -263,7 +284,7 @@ export default function Grid({ config }) {
         </div>
       )}
 
-      {!db && (
+      {!db && incluirParametros && (
         <div className="aviso">
           <h3>Sin base de datos</h3>
           <p>

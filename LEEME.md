@@ -1,4 +1,4 @@
-# VIIM Grid — vista previa del feed de Instagram dentro de Notion
+# Content Kit — vista previa del feed de Instagram dentro de Notion
 
 Convierte tu calendario de contenido de Notion en una grilla que se ve igual al feed de
 Instagram. Cambias algo en Notion, presionas **Actualizar** y la grilla se actualiza.
@@ -54,7 +54,7 @@ Si prefieres una base por cliente, no necesitas la columna Cliente.
 
 1. Entra a **notion.so/my-integrations**
 2. Botón **New integration**
-3. Nombre: `VIIM Grid`. Escoge tu espacio de trabajo. Tipo: **Internal**
+3. Nombre: `Content Kit`. Escoge tu espacio de trabajo. Tipo: **Internal**
 4. Guarda y copia el **Internal Integration Secret**. Es una clave larga que empieza con `ntn_`
 5. Guárdala en un lugar seguro. La vas a necesitar en el paso 4
 
@@ -65,9 +65,9 @@ Esta clave es la llave de tu Notion. No la compartas ni la pegues en ningún cha
 ## Paso 3 — Sube el proyecto a GitHub
 
 1. Entra a **github.com** y presiona **New repository**
-2. Nombre: `viim-grid`. Márcalo como **Private**. Presiona **Create repository**
+2. Nombre: `content-kit`. Márcalo como **Private**. Presiona **Create repository**
 3. En la pantalla que sigue, haz clic en **uploading an existing file**
-4. Descomprime `viim-grid.zip` y arrastra **todo lo que está adentro** a esa pantalla
+4. Descomprime `content-kit.zip` y arrastra **todo lo que está adentro** a esa pantalla
 5. Presiona **Commit changes**
 
 No subas las carpetas `node_modules` ni `.next` si aparecen. No hacen falta.
@@ -77,13 +77,13 @@ No subas las carpetas `node_modules` ni `.next` si aparecen. No hacen falta.
 ## Paso 4 — Publícalo en Vercel
 
 1. Entra a **vercel.com** y presiona **Continue with GitHub**
-2. **Add New → Project** y busca `viim-grid`. Presiona **Import**
+2. **Add New → Project** y busca `content-kit`. Presiona **Import**
 3. Antes de dar Deploy, abre **Environment Variables** y agrega una:
    - Name: `NOTION_TOKEN`
    - Value: la clave que copiaste en el paso 2
    - Presiona **Add**
 4. Presiona **Deploy** y espera un minuto
-5. Vercel te da una dirección tipo `viim-grid.vercel.app`. Esa es tu herramienta
+5. Vercel te da una dirección tipo `content-kit.vercel.app`. Esa es tu herramienta
 
 ---
 
@@ -93,7 +93,7 @@ Notion no deja ver nada hasta que le des permiso, base por base.
 
 1. Abre tu calendario de contenido en Notion
 2. Arriba a la derecha, presiona **•••**
-3. Busca **Conexiones** y elige **VIIM Grid**
+3. Busca **Conexiones** y elige **Content Kit**
 4. Confirma
 
 Repite esto con la base de cada cliente.
@@ -102,7 +102,7 @@ Repite esto con la base de cada cliente.
 
 ## Paso 6 — Genera el enlace y pégalo en Notion
 
-1. Abre `viim-grid.vercel.app` en el navegador
+1. Abre `content-kit.vercel.app` en el navegador
 2. Pega el enlace de la base de datos del cliente, escribe el usuario de Instagram y la bio
 3. Copia el enlace que aparece abajo
 4. En tu página de Notion, escribe `/embed`, pega el enlace y presiona **Insertar enlace**
@@ -130,7 +130,7 @@ Para mostrarle un feed a un cliente sin que vea los borradores, escribe `Aprobad
 ## Si algo falla
 
 **"Notion no encuentra esa base de datos"**
-Falta el paso 5. Abre la base, ••• → Conexiones → VIIM Grid.
+Falta el paso 5. Abre la base, ••• → Conexiones → Content Kit.
 
 **Las imágenes se ven un rato y después desaparecen**
 Los archivos subidos a Notion caducan cada hora. Presiona Actualizar y vuelven. Es normal.

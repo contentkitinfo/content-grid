@@ -1,21 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root {
-  --ink: #101014;
-  --ink-soft: #1b1b21;
-  --line: #2a2a33;
-  --paper: #faf9f7;
-  --sand: #e8e2d6;
-  --violet: #4b3bff;
-  --violet-soft: #ded9ff;
-  --grey: #8a8a96;
+  /* Paleta de Content Kit: verde salvia y teal oscuro, sacados del logo. */
+  --salvia: #cdd5c6;
+  --salvia-suave: #e3e8de;
+  --teal: #165469;
+  --teal-suave: #1f6c85;
+  --ink: #12232a;
+  --ink-soft: #1a323c;
+  --line: #2a4650;
+  --paper: #faf9f5;
+  --sand: #e3e8de;
+  --grey: #8a9690;
+
+  --violet: var(--teal);
+  --violet-soft: var(--salvia-suave);
 
   --bg: var(--paper);
   --fg: var(--ink);
   --panel: #ffffff;
-  --hair: #e4e1db;
-  --sub: #71717f;
+  --hair: #dfe4d8;
+  --sub: #5c6f68;
 
+  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --ui: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --ig: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -23,10 +30,10 @@
 
 [data-tema='oscuro'] {
   --bg: var(--ink);
-  --fg: #f2f2f5;
+  --fg: #f3f5f0;
   --panel: var(--ink-soft);
   --hair: var(--line);
-  --sub: #9a9aa8;
+  --sub: #a9b8b2;
 }
 
 * { box-sizing: border-box; }
@@ -518,4 +525,258 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 480px) {
   .setup h1 { font-size: 27px; }
   .marco { padding: 14px 10px 30px; }
+}
+
+
+/* ---------- Marca Content Kit ---------- */
+
+.marca-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.marca-logotipo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+[data-tema='oscuro'] .marca-logotipo,
+.tema-oscuro-forzado .marca-logotipo {
+  filter: brightness(0) saturate(100%) invert(88%) sepia(9%) saturate(384%) hue-rotate(48deg) brightness(97%) contrast(90%);
+}
+
+.marca-nombre {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--teal);
+}
+
+[data-tema='oscuro'] .marca-nombre { color: var(--salvia); }
+
+
+/* ---------- Pagina de inicio / venta ---------- */
+
+.landing { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+}
+
+.nav-enlaces { display: flex; align-items: center; gap: 26px; }
+.nav-enlaces a {
+  font-size: 14px;
+  color: var(--sub);
+  text-decoration: none;
+}
+.nav-enlaces a:hover { color: var(--fg); }
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform 0.12s ease, background 0.15s ease;
+}
+.btn-cta:hover { background: var(--teal-suave); transform: translateY(-1px); }
+
+.btn-fantasma {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--hair);
+  color: var(--fg);
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-family: var(--ui);
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+}
+.btn-fantasma:hover { border-color: var(--teal); color: var(--teal); }
+
+.hero {
+  padding: 64px 0 56px;
+  text-align: center;
+}
+
+.hero-etiqueta {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--salvia-suave);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: 52px;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 0 0 18px;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.hero h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--teal);
+  font-weight: 500;
+}
+
+.hero p {
+  font-size: 18px;
+  color: var(--sub);
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.55;
+}
+
+.hero-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.seccion { padding: 72px 0; border-top: 1px solid var(--hair); }
+.seccion-etiqueta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sub);
+  margin: 0 0 10px;
+}
+.seccion h2 {
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 12px;
+  max-width: 560px;
+}
+.seccion h2 em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--teal);
+  font-weight: 500;
+}
+.seccion > p.desc { color: var(--sub); font-size: 16px; max-width: 520px; margin: 0 0 40px; }
+
+.funciones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hair);
+  border: 1px solid var(--hair);
+}
+.funcion {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.funcion .icono { font-size: 22px; margin-bottom: 14px; display: block; }
+.funcion h3 { font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+.funcion p { font-size: 14px; color: var(--sub); line-height: 1.5; margin: 0; }
+
+.pasos-numerados {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.paso-num {
+  border-top: 2px solid var(--teal);
+  padding-top: 16px;
+}
+.paso-num .num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 10px;
+}
+.paso-num h3 { font-size: 15px; font-weight: 600; margin: 0 0 6px; }
+.paso-num p { font-size: 13px; color: var(--sub); line-height: 1.5; margin: 0; }
+
+.precios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.precio-tarjeta {
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  padding: 32px 28px;
+  background: var(--panel);
+}
+.precio-tarjeta[data-destacado='true'] {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 1px var(--teal);
+}
+.precio-recomendado {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--teal);
+  color: #fff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin-bottom: 14px;
+}
+.precio-tarjeta h3 { font-size: 18px; margin: 0 0 4px; }
+.precio-tarjeta .precio-sub { font-size: 13px; color: var(--sub); margin: 0 0 20px; }
+.precio-monto { font-size: 38px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+.precio-monto span { font-size: 14px; font-weight: 400; color: var(--sub); }
+.precio-nota { font-size: 12px; color: var(--sub); margin-bottom: 24px; }
+.precio-lista { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.precio-lista li { font-size: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.precio-lista li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+.faq-item { border-bottom: 1px solid var(--hair); padding: 20px 0; }
+.faq-item h3 { font-size: 15px; font-weight: 600; margin: 0 0 8px; }
+.faq-item p { font-size: 14px; color: var(--sub); line-height: 1.6; margin: 0; }
+
+.pie {
+  border-top: 1px solid var(--hair);
+  padding: 32px 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pie-enlaces { display: flex; gap: 18px; }
+.pie-enlaces a { font-size: 13px; color: var(--sub); text-decoration: none; }
+.pie-enlaces a:hover { color: var(--fg); }
+.pie small { font-size: 12px; color: var(--sub); }
+
+@media (max-width: 760px) {
+  .hero h1 { font-size: 34px; }
+  .funciones, .precios { grid-template-columns: 1fr; }
+  .pasos-numerados { grid-template-columns: 1fr 1fr; }
+  .nav-enlaces { display: none; }
 }

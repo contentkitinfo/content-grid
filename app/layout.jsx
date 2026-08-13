@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'VIIM Grid — vista previa de feed en Notion',
+  title: 'Content Kit — vista previa de feed en Notion',
   description: 'Convierte tu calendario de contenido de Notion en una vista previa del feed de Instagram.',
 }
 

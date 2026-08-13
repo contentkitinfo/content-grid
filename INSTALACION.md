@@ -28,7 +28,7 @@ Notion, y a nada mas.
 
 ## Paso 2 — Presiona el boton
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/TU-USUARIO/viim-grid&env=NOTION_TOKEN&envDescription=Tu%20llave%20de%20Notion%20del%20paso%201&project-name=mi-feed&repository-name=mi-feed)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/TU-USUARIO/content-kit&env=NOTION_TOKEN&envDescription=Tu%20llave%20de%20Notion%20del%20paso%201&project-name=mi-feed&repository-name=mi-feed)
 
 Te va a pedir tres cosas:
 

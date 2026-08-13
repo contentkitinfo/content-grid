@@ -1,11 +1,12 @@
-import { subirArchivo } from '../../../../lib/notion'
+import { obtenerWidget } from '../../../../../lib/store'
+import { subirArchivo } from '../../../../../lib/notion'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
 
-export async function POST(request) {
-  const token = process.env.NOTION_TOKEN
-  if (!token) return Response.json({ error: 'Falta NOTION_TOKEN.' }, { status: 500 })
+export async function POST(request, { params }) {
+  const widget = await obtenerWidget(params.id)
+  if (!widget) return Response.json({ error: 'Este widget no existe.' }, { status: 404 })
 
   let archivo, pageId
   try {
@@ -19,7 +20,7 @@ export async function POST(request) {
     return Response.json({ error: 'Falta el archivo o la publicacion.' }, { status: 400 })
   }
 
-  const r = await subirArchivo({ token, pageId, archivo })
+  const r = await subirArchivo({ token: widget.token, pageId, archivo })
   if (r.error) return Response.json({ error: r.error }, { status: 400 })
   return Response.json(r)
 }
