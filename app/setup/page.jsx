@@ -100,6 +100,9 @@ export default function Setup() {
 
   return (
     <main className="setup">
+      <a href="/" style={{ display: 'inline-block', marginBottom: 18, fontSize: 13, color: 'var(--sub)', textDecoration: 'none' }}>
+        ← Volver al inicio
+      </a>
       <div className="marca-cabecera">
         <img src="/marca/logotipo.png" alt="Content Kit" className="marca-logotipo" />
       </div>
